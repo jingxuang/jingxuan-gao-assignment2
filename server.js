@@ -3,11 +3,11 @@ const app = express();
 
 const cors = require('cors');
 const path = require('path');
-const config = require('./config');
+const config = require('./server/config');
 const session = require('express-session');
 
-const userRouter = require('./routes/userRouter');
-const postRouter = require('./routes/postRouter');
+const userRouter = require('./server/routes/userRouter');
+const postRouter = require('./server/routes/postRouter');
 
 const mongoose = require('mongoose');
 
@@ -49,16 +49,17 @@ app.use(passport.session());
 app.use('/api/posts', postRouter);
 app.use('/api/users', userRouter);
 
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
-
-app.listen(process.env.PORT || 8000, () => {
-    console.log('Starting server');
-})
-
 // error handler
-app.use(function(err, req, res, next) {
-        console.error(err.stack);
-        res.status(err.status || 500).send(err.message || 'Error!');
-  });
+// app.use(function(err, req, res, next) {
+//         console.error(err.stack);
+//         res.status(err.status || 500).send(err.message || 'Error!');
+// });
+
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}...`)
+});

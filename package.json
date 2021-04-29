@@ -1,6 +1,10 @@
 {
   "name": "hacky-news-client",
   "version": "0.1.0",
+  "engines": {
+    "node": "15.11.x"
+  },
+  "proxy": "http://localhost:8000",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",
@@ -8,6 +12,7 @@
     "@testing-library/user-event": "^12.8.3",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.6.0",
+    "concurrently": "^6.0.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
@@ -34,10 +39,12 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "devstart": "concurrently \"node ./server/server.js\" \"react-scripts start\"",
+    "start": "node server.js",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": [

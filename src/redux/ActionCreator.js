@@ -2,12 +2,10 @@ import * as ActionTypes from './ActionTypes';
 import history from '../utils/history';
 import {ErrorNotification} from '../utils/notification';
 
-const backendUrl = 'http://localhost:8000/api/';
-
 export const fetchPosts = () => (dispatch) => {
     dispatch(postLoading());
 
-    return fetch(backendUrl + 'posts')
+    return fetch('/api/posts')
         .then(res => {
             if(res.ok) {
                 return res;
@@ -32,7 +30,7 @@ export const createPost = (cookies, title, isText, content, authorId) => (dispat
         author: authorId,
         comments: []
     }
-    return fetch(backendUrl + 'posts', {
+    return fetch('/api/posts', {
         method: 'POST',
         body: JSON.stringify(newPost),
         headers: {
@@ -68,7 +66,7 @@ export const updatePost = (cookies, postId, title, isText, content, authorId) =>
         author: authorId,
     }
 
-    return fetch(backendUrl + 'posts/' + postId, {
+    return fetch('/api/posts/' + postId, {
         method: 'PUT',
         body: JSON.stringify(nPost),
         headers: {
@@ -99,7 +97,7 @@ export const updatePost = (cookies, postId, title, isText, content, authorId) =>
 }
 
 export const removePost = (cookies, postId) => (dispatch) => {
-    return fetch(backendUrl + 'posts/' + postId, {
+    return fetch('/api/posts/' + postId, {
         method: 'DELETE',
         headers: {
             "Authorization": 'Bearer ' + cookies.get('user').token
@@ -130,7 +128,7 @@ export const createComment = (cookies, postId, authorId, comment) => (dispatch) 
         comment:  comment
     }
 
-    return fetch(backendUrl + 'posts/' + postId + '/comments', {
+    return fetch('/api/posts/' + postId + '/comments', {
         method: 'POST',
         body: JSON.stringify(newComment),
         headers: {
@@ -163,7 +161,7 @@ export const updateComment = (cookies, postId, commentId, comment) => (dispatch)
         comment: comment
     }
 
-    return fetch(backendUrl + 'posts/' + postId + '/comments/' + commentId, {
+    return fetch('/api/posts/' + postId + '/comments/' + commentId, {
         method: 'PUT',
         body: JSON.stringify(nComment),
         headers: {
@@ -188,7 +186,7 @@ export const updateComment = (cookies, postId, commentId, comment) => (dispatch)
 }
 
 export const removeComment = (cookies, postId, commentId) => (dispatch) => {
-    return fetch(backendUrl + 'posts/' + postId + '/comments/' + commentId, {
+    return fetch('/api/posts/' + postId + '/comments/' + commentId, {
         method: 'DELETE',
         headers: {
             "Authorization": 'Bearer ' + cookies.get('user').token
@@ -218,7 +216,7 @@ export const signup = (cookies, username, password) => (dispatch) => {
             password: password
         }
 
-        return fetch(backendUrl + 'users/signup', {
+        return fetch('/api/users/signup', {
             method: 'POST',
             body: JSON.stringify(newUser),
             headers: {
@@ -249,7 +247,7 @@ export const login = (cookies, username, password) => (dispatch) => {
         password: password
     }
 
-    return fetch(backendUrl + 'users/login', {
+    return fetch('/api/users/login', {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {
@@ -279,7 +277,7 @@ export const login = (cookies, username, password) => (dispatch) => {
 }
 
 export const logout = (cookies) => (dispatch) => {
-    return fetch(backendUrl + 'users/logout', {
+    return fetch('/api/users/logout', {
         method: 'POST',
         headers: {
             "Authorization": 'Bearer ' + cookies.get('user').token
