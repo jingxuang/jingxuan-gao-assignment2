@@ -49,7 +49,7 @@ export const createPost = (cookies, title, isText, content, authorId) => (dispat
         }, error => {return new Error(error.message)})
         .then(res => res.json())
         .then(post => { // If success, redirect
-            dispatch(addPosts(post));
+            dispatch(addPosts([post]));
             history.push('/post/' + post._id);
         })
         .catch(error => {
