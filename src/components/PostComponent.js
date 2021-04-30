@@ -1,6 +1,7 @@
 import {Component} from 'react';
 import { Card, CardBody, CardSubtitle, CardTitle } from 'reactstrap';
 import history from '../utils/history';
+import TimeAgo from 'timeago-react';
 
 class Post extends Component {
 
@@ -51,9 +52,9 @@ class Post extends Component {
             if(this.props.cookies.get('user') && this.props.cookies.get('user').username === this.props.post.author.username) {
                 return (
                     <>
-                        <span className="span-divider"> | </span>
+                        <span className="span-info"> | </span>
                         <span className="span-option" onClick={this.updatePost}>edit</span>
-                        <span className="span-divider"> | </span>
+                        <span className="span-info"> | </span>
                         <span className="span-option" onClick={this.deletePost}>delete</span>
                     </>
                 );
@@ -67,9 +68,11 @@ class Post extends Component {
                     {this.props.post.title}
                 </CardTitle>
                 <CardSubtitle>
-                        <span className="span-option"> by {this.props.post.author.username}</span>
+                        <span className="span-info"> by </span>
+                        <span className="span-option">{this.props.post.author.username}</span>
+                        <span className="span-info"> <TimeAgo datetime={this.props.post.createdAt}/></span>
                         {authorOption()}
-                        <span className="span-divider"> | </span>
+                        <span className="span-info"> | </span>
                         <span className="span-option" onClick={this.goComment}> {commentOption()} </span>
                 </CardSubtitle>
             </CardBody>

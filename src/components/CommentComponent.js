@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import {Card, CardBody, CardTitle,CardSubtitle} from 'reactstrap';
 import CommentForm from './CommentFormComponent';
-
+import TimeAgo from 'timeago-react';
 class Comment extends Component {
 
     constructor(props) {
@@ -32,9 +32,9 @@ class Comment extends Component {
             if(this.props.cookies.get('user') && this.props.cookies.get('user').username === this.props.comment.author.username) {
                 return (
                     <>
-                        <span className="span-divider"> | </span>
+                        <span className="span-info"> | </span>
                         <span className="span-option" onClick={this.editComment}>edit</span>
-                        <span className="span-divider"> | </span>
+                        <span className="span-info"> | </span>
                         <span className="span-option" onClick={this.deleteComment}>delete</span>                          
                     </>
                 );
@@ -56,7 +56,9 @@ class Comment extends Component {
                         {renderComment()}                    
                     </CardTitle>
                     <CardSubtitle>
-                        <span className="span-option">by {this.props.comment.author.username}</span>
+                        <span className="span-info"> by </span>
+                        <span className="span-option">{this.props.comment.author.username}</span>
+                        <span className="span-info"> <TimeAgo datetime={this.props.comment.createdAt}/></span>
                         {authorOption()}
                     </CardSubtitle>
                 </CardBody>
