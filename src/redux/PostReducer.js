@@ -20,7 +20,7 @@ export const PostReducer = (state = {
             return {
                 isLoading: false,
                 errMsg: null, 
-                posts: state.posts.concat(action.payload)
+                posts: action.payload.concat(state.posts)
             };
         case ActionTypes.UPDATE_POST:
             return {

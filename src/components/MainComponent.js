@@ -50,6 +50,7 @@ class Main extends Component {
                     isLoading={this.props.posts.isLoading}
                     errMsg={this.props.posts.errMsg}
                     post={this.props.posts.posts.filter((post) => post._id === match.params.postId)[0]}
+                    removePost={this.props.removePost}
                     updateComment={this.props.updateComment}
                     createComment={this.props.createComment}
                     removeComment={this.props.removeComment}
@@ -61,6 +62,7 @@ class Main extends Component {
         const PostEditPage = ({match}) => {
             return (
                 <Submit 
+                    edit
                     cookies={this.props.cookies}
                     updatePost={this.props.updatePost}
                     post={this.props.posts.posts.filter((post) => post._id === match.params.postId)[0]}

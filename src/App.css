@@ -22,10 +22,16 @@
 .span-option {
     cursor: pointer;
     color: grey;
+    font-size: small;
 }
 
 .span-info {
     color: grey;
+    font-size: small;
+}
+
+.span-icon {
+    color: grey
 }
 
 .span-option:hover {

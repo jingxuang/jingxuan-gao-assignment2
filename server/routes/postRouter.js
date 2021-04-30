@@ -7,7 +7,7 @@ const authenticate = require('../authenticate');
 postRouter.route('/')
     // Get list of all posts in the database
     .get((req, res, next) => {
-        Post.find({})
+        Post.find({}).sort({createdAt: 'desc'})
             .populate('author')
             .populate('comments.author')
             .then((posts) => {

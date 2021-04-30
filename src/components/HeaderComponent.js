@@ -1,6 +1,9 @@
 import {Component} from 'react';
 import { NavLink } from 'react-router-dom';
 import {Navbar, Collapse, NavbarToggler, NavItem, Nav, Modal, Button, ModalHeader, ModalBody, Form, FormGroup, Col, Input, Label} from 'reactstrap';
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 class Header extends Component {
 
     constructor(props) {
@@ -76,7 +79,7 @@ class Header extends Component {
                 return (
                     <Nav navbar>
                         <NavItem>
-                            <Button outline>{this.props.cookies.get('user').username}</Button>
+                            <Button outline> <FontAwesomeIcon icon={faUser}/> {this.props.cookies.get('user').username}</Button>
                         </NavItem>
                         <NavItem>
                             <Button outline onClick={this.handleLogout}>Logout</Button>

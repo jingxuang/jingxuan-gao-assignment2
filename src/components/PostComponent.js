@@ -1,7 +1,9 @@
 import {Component} from 'react';
 import { Card, CardBody, CardSubtitle, CardTitle } from 'reactstrap';
 import history from '../utils/history';
-import TimeAgo from 'timeago-react';
+import { faLink, faGripLinesVertical} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Option from './OptionComponent';
 
 class Post extends Component {
 
@@ -9,10 +11,6 @@ class Post extends Component {
         super(props);
 
         this.handleClick = this.handleClick.bind(this);
-
-        this.updatePost = this.updatePost.bind(this);
-        this.deletePost = this.deletePost.bind(this);
-        
         this.goComment = this.goComment.bind(this);
     }
 
@@ -24,14 +22,6 @@ class Post extends Component {
         } else {
             window.location = this.props.post.content;
         }
-    }
-
-    updatePost() {
-        history.push('/submit/' + this.props.post._id);
-    }
-
-    deletePost() {
-        this.props.removePost(this.props.cookies, this.props.post._id);
     }
 
     goComment() {
@@ -48,16 +38,9 @@ class Post extends Component {
             }
         }
 
-        const authorOption = () => {
-            if(this.props.cookies.get('user') && this.props.cookies.get('user').username === this.props.post.author.username) {
-                return (
-                    <>
-                        <span className="span-info"> | </span>
-                        <span className="span-option" onClick={this.updatePost}>edit</span>
-                        <span className="span-info"> | </span>
-                        <span className="span-option" onClick={this.deletePost}>delete</span>
-                    </>
-                );
+        const postIcon = () => {
+            if(!this.props.post.isText) {
+                return (<span className="span-icon"><FontAwesomeIcon icon={faLink}/></span>);
             }
         }
 
@@ -65,14 +48,15 @@ class Post extends Component {
             <Card> 
             <CardBody>
                 <CardTitle className="post-title" onClick={this.handleClick}>
-                    {this.props.post.title}
+                    {this.props.post.title} {postIcon()}
                 </CardTitle>
                 <CardSubtitle>
-                        <span className="span-info"> by </span>
-                        <span className="span-option">{this.props.post.author.username}</span>
-                        <span className="span-info"> <TimeAgo datetime={this.props.post.createdAt}/></span>
-                        {authorOption()}
-                        <span className="span-info"> | </span>
+                        <Option 
+                            cookies={this.props.cookies}
+                            post={this.props.post}
+                            removePost={this.props.removePost}
+                        />
+                        <span className="span-icon"> <FontAwesomeIcon icon={faGripLinesVertical}  size="xs"/> </span>
                         <span className="span-option" onClick={this.goComment}> {commentOption()} </span>
                 </CardSubtitle>
             </CardBody>

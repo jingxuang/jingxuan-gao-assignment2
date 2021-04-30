@@ -17,6 +17,14 @@ class Submit extends Component {
         }
     }
 
+    componentDidMount() {
+        if(this.props.edit && !this.props.post) {
+            ErrorNotification("Post doesn't exist!");
+            history.push('/home');
+        }
+    }
+
+
     handleSumbit(e) {
         e.preventDefault();
 

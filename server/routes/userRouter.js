@@ -59,6 +59,7 @@ userRouter.route('/login')
             success: true,
             token: token,
             userId: req.user._id,
+            expiresIn: 7200,
             status: 'Logged in successfully!'
         })
     });

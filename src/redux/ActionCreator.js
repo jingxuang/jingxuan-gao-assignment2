@@ -267,7 +267,7 @@ export const login = (cookies, username, password) => (dispatch) => {
         })
         .then(res => res.json())
         .then(res => { // Login successfully, redirect to home page
-            cookies.set('user', {username: username, token: res.token, userId: res.userId}, {path: '/'});
+            cookies.set('user', {username: username, token: res.token, userId: res.userId}, {path: '/', maxAge: res.expiresIn});
             //history.push('/home');
         })
         .catch(error => {
