@@ -20,30 +20,27 @@ userRouter.route('/')
 
 userRouter.route('/signup')
     .post((req, res, next) => {
-
-        console.log(req.body);
-
         User.register(new User({username: req.body.username}), req.body.password, (err, user) => {
             if(err) {
-                res.statusCode = 500;
-                res.setHeader('Content-Type', 'application/json');
-                res.json({error: err});
-                console.log(err);
+                // res.statusCode = 500;
+                // res.setHeader('Content-Type', 'application/json');
+                let error = new Error(err.message);
+                error.status = 500;
+                next(error);
             } else {
                 // Save the user into the database
                 user.save((err, user) => {
                     if(err) {
-                        res.statusCode = 500;
-                        res.setHeader('Content-Type', 'application/json');
-                        res.json({error: err});
-                        return;
+                        let error = new Error(err.message);
+                        error.status = 500;
+                        next(error);
+                    } else {
+                        passport.authenticate('local')(req, res, () => {
+                            res.statusCode = 200;
+                            res.setHeader('Content-Type', 'application/json');
+                            res.json({success: true, status: 'Regsitration successful!'});
+                        });                        
                     }
-                    passport.authenticate('local')(req, res, () => {
-                        res.statusCode = 200;
-                        res.setHeader('Content-Type', 'application/json');
-                        res.json({success: true, status: 'Regsitration successful!'});
-                    });
-
                 });
             }
         });

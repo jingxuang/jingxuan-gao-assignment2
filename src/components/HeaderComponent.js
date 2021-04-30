@@ -1,9 +1,10 @@
 import {Component} from 'react';
 import { NavLink } from 'react-router-dom';
-import {Navbar, Collapse, NavbarToggler, NavItem, Nav, Modal, Button, ModalHeader, ModalBody, Form, FormGroup, Col, Input, Label} from 'reactstrap';
+import {Navbar, Collapse, NavbarToggler, NavItem, Nav, Modal, Button, ModalHeader, ModalBody, Form, FormGroup, Col, Input, Label, NavbarBrand} from 'reactstrap';
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+// Navbar 
 class Header extends Component {
 
     constructor(props) {
@@ -105,6 +106,7 @@ class Header extends Component {
             <Navbar dark expand="md">
                 <div className="container">
                     <NavbarToggler onClick={this.toggleNav} />
+                    <NavbarBrand>Hacky News</NavbarBrand>
                     <Collapse isOpen={this.state.isNavOpen} navbar>
                         <Nav navbar>
                             <NavItem>

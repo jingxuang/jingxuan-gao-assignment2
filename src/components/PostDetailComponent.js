@@ -3,8 +3,6 @@ import {Card, CardBody, CardSubtitle, CardText, CardTitle} from 'reactstrap';
 import Comment from './CommentComponent';
 import CommentForm from './CommentFormComponent';
 import Option from './OptionComponent';
-import { ErrorNotification } from '../utils/notification';
-import history from '../utils/history';
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -19,20 +17,12 @@ class PostDetail extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    componentDidMount() {
-        if(!this.props.post) {
-            ErrorNotification("Post doesn't exist!");
-            history.push('/home');
-        }
-    }
-
     handleClick(e) {
         if(e.target !== e.currentTarget) return;
         window.location = this.props.post.content;
     }
 
     render() {
-
         // Make url post's title clickable
         const renderTitle = () => {
             if(this.props.post.isText) {
@@ -45,13 +35,13 @@ class PostDetail extends Component {
         // Don't display the content of url post
         const renderText = () => {
             if(this.props.post.isText) {
-                return (<CardText>{this.props.post.content}</CardText>);
+                return (<CardText className="post-content">{this.props.post.content}</CardText>);
             }
         }
 
         // If logged in, show comment option
         const commentOption = () => {
-            if(this.props.cookies.get('user')) {
+            if(this.props.cookies && this.props.cookies.get('user')) {
                 return(
                     <CommentForm create postId={this.props.post._id} cookies={this.props.cookies} createComment={this.props.createComment}></CommentForm>
                 );
@@ -66,30 +56,33 @@ class PostDetail extends Component {
                 return(<h4>{this.props.errMsg}</h4>);
             }
             else if(this.props.post) {
-
                 return(
-                    <ul className="post-item">
-                        <Card>
-                            <CardBody>
-                                {renderTitle()}
-                                <CardSubtitle>
+                    <div className="post-container">
+                        <ul className="post-item">
+                            <Card>
+                                <CardBody>
+                                    {renderTitle()}
+                                    <CardSubtitle>
                                     <Option 
                                         cookies={this.props.cookies}
                                         post={this.props.post}
                                         removePost={this.props.removePost}
-                                    />                                    
-                                </CardSubtitle>
-                                {renderText()}
-                                {commentOption()}
-                                <hr/>
-                                {renderComments(this.props.post._id, this.props.post.comments)}
-                            </CardBody>
-                        </Card>                        
-                    </ul>
+                                    />                                                                       
+                                    </CardSubtitle>
+                                    {renderText()}
+                                    {commentOption()}
+                                    <hr/>
+                                    {renderComments(this.props.post._id, this.props.post.comments)}
+                                </CardBody>
+                            </Card>                                               
+                        </ul>                                              
+                    </div>
                 );                
-            }
+            } 
             else {
-                return <div></div>
+                return (
+                    <h4>Post doesn't exist! Redirect to <a href="/home">Home</a>...</h4>      
+                );
             }
         }
 

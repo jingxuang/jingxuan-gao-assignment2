@@ -50,10 +50,11 @@ app.use('/api/posts', postRouter);
 app.use('/api/users', userRouter);
 
 // error handler
-// app.use(function(err, req, res, next) {
-//         console.error(err.stack);
-//         res.status(err.status || 500).send(err.message || 'Error!');
-// });
+app.use(function(err, req, res, next) {
+        console.error(err.stack);
+        res.statusMessage = err.message || 'Error!';
+        res.status(err.status || 500).end();
+});
 
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));

@@ -2,6 +2,8 @@ import {Component} from 'react';
 import {Form, FormGroup, Input, Button} from 'reactstrap';
 import {ErrorNotification} from '../utils/notification';
 
+
+// Render a comment form inside the post detailPage 
 class CommentForm extends Component {
 
     constructor(props) {

@@ -19,6 +19,10 @@
     padding: 20px
 }
 
+.post-content {
+    margin-top: 6px;
+}
+
 .span-option {
     cursor: pointer;
     color: grey;

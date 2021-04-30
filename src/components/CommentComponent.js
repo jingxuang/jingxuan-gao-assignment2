@@ -4,6 +4,8 @@ import CommentForm from './CommentFormComponent';
 import TimeAgo from 'timeago-react';
 import { faGripLinesVertical, faAt, faClock} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// To render a piece of comment with detailed options based on user's status
 class Comment extends Component {
 
     constructor(props) {
@@ -30,6 +32,7 @@ class Comment extends Component {
 
     render() {
 
+        // Show author options 
         const authorOption = () => {
             if(this.props.cookies.get('user') && this.props.cookies.get('user').username === this.props.comment.author.username) {
                 return (

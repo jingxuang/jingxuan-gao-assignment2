@@ -227,7 +227,7 @@ export const signup = (cookies, username, password) => (dispatch) => {
                 if(res.ok) { // Signup succeed, then login the user
                     return;
                 } else {
-                    let error = new Error('Status: ' + res.status + ': ' + res.statusText);
+                    let error = new Error(res.statusText);
                     error.response = res;
                     throw error;
                 }

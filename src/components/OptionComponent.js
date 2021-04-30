@@ -20,6 +20,7 @@ class Option extends Component {
 
     deletePost() {
         this.props.removePost(this.props.cookies, this.props.post._id);
+        history.push('/home');
     }
 
     render() {
